@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161022173313) do
+ActiveRecord::Schema.define(version: 20161022232934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "deployments", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "status_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_deployments_on_project_id", using: :btree
+    t.index ["status_id"], name: "index_deployments_on_status_id", using: :btree
+  end
+
+  create_table "machine_deployments", force: :cascade do |t|
+    t.integer  "deployment_id"
+    t.integer  "status_id",     null: false
+    t.text     "log"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["deployment_id"], name: "index_machine_deployments_on_deployment_id", using: :btree
+    t.index ["status_id"], name: "index_machine_deployments_on_status_id", using: :btree
+  end
 
   create_table "machines", force: :cascade do |t|
     t.string   "ip",         null: false
@@ -59,4 +78,6 @@ ActiveRecord::Schema.define(version: 20161022173313) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "deployments", "projects"
+  add_foreign_key "machine_deployments", "deployments"
 end
