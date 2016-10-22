@@ -4,6 +4,9 @@ RSpec.describe User, type: :model do
   it { is_expected.to validate_presence_of :ssh_public_key }
   it { is_expected.to validate_presence_of :ssh_private_key }
 
+  it { should have_many :projects }
+  it { should have_many :machines }
+
   describe 'before validation' do
     it 'does not assign any key when email is blank' do
       user = build(:user, email: '')
