@@ -1,0 +1,7 @@
+h1= link_to 'Deploy-it', root_path
+
+- if user_signed_in?
+  p
+    = link_to 'Profile', profile_path
+    br
+    = link_to 'Sign out', destroy_user_session_path, method: :delete
