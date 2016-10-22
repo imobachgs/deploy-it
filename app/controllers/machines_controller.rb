@@ -2,7 +2,7 @@ class MachinesController < ApplicationController
 
   def index
     # @machines = current_user.machines
-    @machines = Machine.all
+    @machines = current_user.machines
   end
 
   def show
@@ -10,11 +10,12 @@ class MachinesController < ApplicationController
   end
 
   def new
-    @machine = Machine.new
+    @machine = current_user.machines.new
   end
 
   def create
-    @machine = Machine.new(machine_params)
+
+    @machine = current_user.machines.new(machine_params)
     if @machine.save
       redirect_to machines_path
     else
@@ -48,6 +49,6 @@ class MachinesController < ApplicationController
   end
 
   def machine_params
-    params.require(:machine).permit(:name, :ip)
+    params.require(:machine).permit(:name, :ip, :user_id)
   end
 end

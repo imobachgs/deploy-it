@@ -2,15 +2,15 @@ class ProjectsController < ApplicationController
   before_action :load_projects_kind, except: :index
 
   def index
-    @projects = Project.all
+    @projects = current_user.projects
   end
 
   def new
-    @project = Project.new
+    @project = current_user.projects.new
   end
 
   def create
-    @project = Project.new(project_params)
+    @project = current_user.projects.new(project_params)
 
     if @project.save
       redirect_to projects_url
@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:name, :desc, :repo_url, :kind_id)
+    params.require(:project).permit(:name, :desc, :repo_url, :kind_id, :user_id)
   end
 
   def load_projects_kind
