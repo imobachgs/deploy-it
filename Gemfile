@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'simple_form'
 # Template engine
 gem 'slim-rails'
+# Authentication
+gem 'devise'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -58,6 +60,7 @@ group :test do
   gem 'nyan-cat-formatter'
   gem 'capybara'
   gem 'poltergeist'
+  gem 'faker'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
