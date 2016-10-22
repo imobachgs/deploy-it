@@ -1,0 +1,16 @@
+h1 Machine List
+
+table
+  th name
+  th ip
+  th actions
+  - @machines.each do |machine|
+    tr
+      td= machine.name
+      td= machine.ip
+      td= link_to 'Show', machine
+      td= link_to 'Edit', edit_machine_path(machine)
+      td= link_to 'Destroy', machine, method: :delete,
+        data: { confirm: "You will destroy the next machine: #{machine.name}. Are you sure?" }
+
+= link_to 'Add new machine', new_machine_path
