@@ -1,0 +1,45 @@
+{
+  "name": "deploy-it",
+  "description": "Deploys applications",
+  "long_description": "Deploys different kinds of applications",
+  "maintainer": "GDMK",
+  "maintainer_email": "imobachgs@gmail.com",
+  "license": "mit",
+  "platforms": {
+  },
+  "dependencies": {
+    "application": ">= 0.0.0",
+    "application_ruby": ">= 0.0.0",
+    "application_git": ">= 0.0.0",
+    "postgresql": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.0",
+  "source_url": "",
+  "issues_url": "",
+  "privacy": false,
+  "chef_versions": [
+
+  ],
+  "ohai_versions": [
+
+  ],
+  "gems": [
+
+  ]
+}
