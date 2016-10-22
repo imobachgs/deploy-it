@@ -1,12 +1,15 @@
 require 'rails_helper'
 
-feature 'Manage projects' do
+RSpec.feature 'Manage projects', type: :feature do
+  given(:user) { create(:confirmed_user) }
   given!(:rails_kind) { create(:project_kind, name: 'Rails') }
   given!(:html_kind) { create(:project_kind, name: 'HTML') }
 
-  feature 'Create' do
+  context 'Create' do
     background do
-      visit '/projects/new'
+      visit root_path
+      sign_in(user)
+      visit new_project_path
     end
 
     scenario 'create and redirect to index on success' do
@@ -30,11 +33,13 @@ feature 'Manage projects' do
     end
   end
 
-  feature 'Update' do
-    given!(:project) { create(:project, name: 'Wrong name') }
+  context 'Update' do
+    given!(:project) { create(:project, name: 'Wrong name', user: user) }
 
     background do
-      visit '/projects'
+      visit root_path
+      sign_in(user)
+      visit projects_path
 
       within(:xpath, "//div[@id='project-#{project.id}']") do
         click_link 'Edit'

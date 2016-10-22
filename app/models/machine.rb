@@ -1,6 +1,5 @@
 class Machine < ApplicationRecord
-  has_many :projects
+  belongs_to :user
 
-  validates :name,         presence: true
-  validates :ip,           presence: true
+  validates :user_id, :name, :ip, presence: true
 end

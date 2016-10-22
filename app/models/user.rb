@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable, :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :projects
+  has_many :machines
+
   before_validation :assign_ssh_keys, on: :create, unless: -> { email.blank? }
 
   validates :ssh_public_key, :ssh_private_key, presence: true
