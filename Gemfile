@@ -54,6 +54,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'nyan-cat-formatter'
   gem 'capybara'
+  gem 'poltergeist'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
