@@ -1,0 +1,67 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+  #
+  # Basic configuration
+  #
+  config.vm.box = "opensuse/openSUSE-42.1-x86_64"
+
+  #
+  # Synced folders
+  #
+  mount_options = ENV["VAGRANT_USE_NFS"] == "true" ?
+    { nfs: true, nfs_version: 3, nfs_udp: true } : {}
+  config.vm.synced_folder ".", "/home/vagrant/project", mount_options
+
+  #
+  # Network
+  #
+  if ENV["VAGRANT_USE_NFS"] == "true"
+    config.vm.network "private_network", type: "dhcp"
+  end
+
+  #
+  # Misc
+  #
+  config.ssh.forward_x11 = true
+  config.ssh.forward_agent = true
+
+  #
+  # Provisioning
+  #
+  config.vm.define "rails5" do |machine|
+    machine.vm.network "forwarded_port", guest: 3000, host: 3000
+    if ENV["VAGRANT_DISTRO"] == "opensuse"
+      machine.vm.box = "opensuse/openSUSE-42.1-x86_64"
+      distro = "opensuse"
+    else
+      machine.vm.box = "ubuntu/trusty64"
+      distro = "ubuntu"
+    end
+    machine.vm.hostname = "rails5"
+    machine.vm.provision "shell", privileged: false,
+      path: "provisioning/setup-rails5.sh", env: { "VAGRANT_DISTRO" => distro }
+
+    # If a custom.sh script exists, it will be also executed during provisioning.
+    if File.exists?("provisioning/custom.sh")
+      config.vm.provision "shell", privileged: false, path: "provisioning/custom.sh"
+    end
+  end
+
+  config.vm.define "server" do |machine|
+    machine.vm.network "forwarded_port", guest: 8000, host: 8000
+    machine.vm.box = "ubuntu/trusty64"
+    machine.vm.hostname = "server"
+    machine.vm.provision "shell", privileged: false,
+      path: "provisioning/setup-server.sh"
+    machine.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024" 
+    end
+  end
+
+end
