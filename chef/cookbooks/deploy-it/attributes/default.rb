@@ -3,7 +3,10 @@ default['deploy-it']['repo_url'] = ''
 default['deploy-it']['path'] = '/srv/deploy-it/app'
 
 default['deploy-it']['ruby']['version'] = '2'
-default['deploy-it']['rails']['user'] = 'rails'
+
+default['deploy-it']['system']['user'] = 'rails'
+default['deploy-it']['system']['group'] = 'rails'
+
 default['deploy-it']['rails']['password'] = 'rails'
 default['deploy-it']['rails']['secret'] = '123456789'
 

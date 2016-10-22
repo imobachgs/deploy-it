@@ -4,22 +4,9 @@
 #
 # Copyright (c) 2016 GDMK, MIT License
 
-#
-# Create system user
-#
-group node['deploy-it']['rails']['user'] do
-  action :create
-end
-
-user node['deploy-it']['rails']['user'] do
-  username node['deploy-it']['rails']['user']
-  group node['deploy-it']['rails']['user']
-  system true
-  action :create
-end
-
 node.override["build-essential"]["compile_time"] = true
 include_recipe 'build-essential::default'
+include_recipe 'deploy-it::system-user'
 
 ruby_runtime node['deploy-it']['ruby']['version']
 
@@ -34,7 +21,7 @@ end
 
 application node['deploy-it']['path'] do
   owner node['deploy-it']['rails']['user']
-  group node['deploy-it']['rails']['user']
+  group node['deploy-it']['rails']['group']
 
   git node['deploy-it']['repo_url'] do
     user 'rails'
