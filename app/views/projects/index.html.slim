@@ -1,0 +1,20 @@
+h2 Projects list
+
+.actions
+  = link_to 'Create a new project', new_project_path
+
+- @projects.each do |project|
+  div id="project-#{project.id}"
+    h3
+      = project.name
+      small= project.repo_url
+
+    p= project.desc
+
+    .actions
+      span= link_to 'Edit', edit_project_path(project)
+      span Remove
+
+
+
+

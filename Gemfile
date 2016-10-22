@@ -33,6 +33,9 @@ gem 'slim-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Active Hash
+gem 'active_hash'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
@@ -54,6 +57,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'nyan-cat-formatter'
   gem 'capybara'
+  gem 'poltergeist'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
