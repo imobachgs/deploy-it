@@ -24,3 +24,6 @@ provisioning/
 
 # Ignore database config
 /config/database.yml
+
+# Testing
+/spec/examples.txt
