@@ -21,3 +21,6 @@
 Vagrantfile
 .vagrant/
 provisioning/
+
+# Ignore database config
+/config/database.yml
