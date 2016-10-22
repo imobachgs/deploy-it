@@ -24,4 +24,11 @@ RSpec.feature 'Signing in', type: :feature do
     expect(current_path).to eq(root_path)
     expect(page).to have_content('Signed in successfully.')
   end
+
+  scenario 'successfully with GitHub account' do
+    click_link 'Sign in with GitHub'
+
+    expect(current_path).to eq(root_path)
+    expect(page).to have_content('Successfully authenticated from GitHub account.')
+  end
 end

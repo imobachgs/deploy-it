@@ -31,6 +31,8 @@ gem 'simple_form'
 gem 'slim-rails'
 # Authentication
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-github'
 # SSH Keys
 gem 'sshkey'
 
@@ -44,6 +46,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   gem 'rspec-rails'
+  gem 'dotenv-rails'
 end
 
 group :development do

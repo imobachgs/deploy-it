@@ -27,3 +27,6 @@ provisioning/*.disabled
 
 # Testing
 /spec/examples.txt
+
+# Environment variables
+/.env
