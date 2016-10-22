@@ -31,6 +31,8 @@ gem 'simple_form'
 gem 'slim-rails'
 # Authentication
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-github'
 # SSH Keys
 gem 'sshkey'
 
