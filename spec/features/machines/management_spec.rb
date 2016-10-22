@@ -1,9 +1,12 @@
 require 'rails_helper'
 
 RSpec.feature 'Manage machines', type: :feature do
+  given(:user) { create(:confirmed_user) }
   context 'Create machine' do
     background do
-      visit "/machines/new"
+      visit root_path
+      sign_in(user)
+      visit new_machine_path
     end
 
     scenario 'create and redirect to index on success' do
@@ -27,10 +30,13 @@ RSpec.feature 'Manage machines', type: :feature do
   end
 
   context 'Update machine' do
-    given!(:machine) { create(:machine) }
+    given(:user) { create(:confirmed_user) }
+    given!(:machine) { create(:machine, user: user) }
 
     background do
-      visit "/machines/#{machine.id}/edit"
+      visit root_path
+      sign_in(user)
+      visit edit_machine_path(machine)
     end
 
     scenario 'update and redirect to index on success' do
