@@ -21,6 +21,9 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
+    @roles = Role.all
+    @machines = Machine.all
+    @roles.each { @project.assignments.build if @project.assignments.count < Role.all.count}
   end
 
   def update
@@ -36,7 +39,19 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:name, :desc, :repo_url, :kind_id, :user_id)
+    params.require(:project).permit(
+      :name,
+      :desc,
+      :repo_url,
+      :kind_id,
+      :user_id,
+      assignments_attributes: [
+        :id,
+        :project_id,
+        :role_id,
+        :machine_id
+      ]
+    )
   end
 
   def load_projects_kind
