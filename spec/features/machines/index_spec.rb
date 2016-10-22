@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Listing' do
+RSpec.feature 'Listing', type: :feature do
   given!(:machine) { create(:machine) }
 
   scenario 'machines show title' do
@@ -14,6 +14,4 @@ feature 'Listing' do
 
     expect(page).to have_content(machine.ip)
   end
-
 end
-

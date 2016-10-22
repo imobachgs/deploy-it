@@ -1,9 +1,7 @@
 require 'rails_helper'
 
-feature 'Manage machines' do
-
-  feature 'Create machine' do
-
+RSpec.feature 'Manage machines', type: :feature do
+  context 'Create machine' do
     background do
       visit "/machines/new"
     end
@@ -26,12 +24,11 @@ feature 'Manage machines' do
 
       expect(page).to have_selector('form#new_machine')
     end
-
   end
 
-
-  feature 'Update machine' do
+  context 'Update machine' do
     given!(:machine) { create(:machine) }
+
     background do
       visit "/machines/#{machine.id}/edit"
     end
@@ -54,4 +51,3 @@ feature 'Manage machines' do
     end
   end
 end
-

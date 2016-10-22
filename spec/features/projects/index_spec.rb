@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Listing projects' do
+RSpec.feature 'Listing projects', type: :feature do
   given!(:project) { create(:project) }
 
   scenario 'List all projects' do

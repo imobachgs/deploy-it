@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-feature 'Manage projects' do
+RSpec.feature 'Manage projects', type: :feature do
   given!(:rails_kind) { create(:project_kind, name: 'Rails') }
   given!(:html_kind) { create(:project_kind, name: 'HTML') }
 
-  feature 'Create' do
+  context 'Create' do
     background do
       visit '/projects/new'
     end
@@ -30,7 +30,7 @@ feature 'Manage projects' do
     end
   end
 
-  feature 'Update' do
+  context 'Update' do
     given!(:project) { create(:project, name: 'Wrong name') }
 
     background do
