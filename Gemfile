@@ -31,6 +31,8 @@ gem 'simple_form'
 gem 'slim-rails'
 # Authentication
 gem 'devise'
+# SSH Keys
+gem 'sshkey'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
