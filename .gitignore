@@ -17,10 +17,10 @@
 .byebug_history
 
 # Ignore Vagrant
-
 Vagrantfile
 .vagrant/
-provisioning/
+provisioning/custom.sh
+provisioning/*.disabled
 
 # Ignore database config
 /config/database.yml
