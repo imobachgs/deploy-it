@@ -12,11 +12,6 @@ html
 
     section.body.section
       .container
-        .column.is-half.is-offset-one-quarter
-          - flash.each do |name, message|
-            div class="notification is-#{name}"
-              = message
-      .container
         = yield
 
     footer.footer
