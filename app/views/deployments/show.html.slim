@@ -1,0 +1,16 @@
+- content_for :title, @deployment.project_name
+- content_for :subtitle do
+  .deploymnet-status
+    span class="is-#{@deployment.status_name.downcase}"
+      = @deployment.status_name
+
+
+.container
+  - @deployment.machine_deployments.each do |md|
+    .message
+      .message-header
+        = md.machine_name
+      .message-body
+        .container.is-medium
+          pre
+            = md.log
