@@ -24,19 +24,20 @@ class Deployment < ApplicationRecord
     raise AlreadyInQueue unless machine_deployments.empty?
     ordered = project.assignments.sort_by(&:role_id)
     ordered.chunk(&:machine_id).each do |machine_id, assignments|
-      byebug
       machine_deployments.create(machine_id: machine_id, roles: assignments.map(&:role).map(&:chef))
     end
   end
 
   def next!
-    next_deploy = machine_deployments.find_by_status_id(DeployStatus::PENDING.id)
+    # FIXME: we should not trust in the id to order the deployments
+    next_deploy = machine_deployments.pending.order(:id)
     if next_deploy.nil? # Finished!
-      update_attributes!(status: DeployStatus::FINISHED)
+      update_attributes!(status: DeploymentStatus::FINISHED)
     else
-      update_attributes!(status: DeployStatus::RUNNING)
+      update_attributes!(status: DeploymentStatus::RUNNING)
       # Perform job
     end
+    next_deploy
   end
 
 protected

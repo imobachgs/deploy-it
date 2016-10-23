@@ -7,6 +7,8 @@ class MachineDeployment < ApplicationRecord
 
   serialize :roles, Array
 
+  scope :pending, -> { where(status_id: DeploymentStatus::PENDING.id) }
+
   after_initialize :set_default_status
 
   validates :deployment_id, :status_id, presence: true

@@ -7,6 +7,7 @@ class Project < ApplicationRecord
   belongs_to :user
   has_many :assignments
   has_many :machines, through: :assignments
+  has_many :deployments
   accepts_nested_attributes_for :assignments, allow_destroy: true
 
   validates :name, :repo_url, :kind_id, :user_id, presence: true
