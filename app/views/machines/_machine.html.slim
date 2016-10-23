@@ -1,0 +1,14 @@
+.column.is-one-third-desktop.is-half-tablet id="machine-#{machine.id}"
+  .card.is-fullwidth
+    .card-content
+      .media
+        .media-content
+          .title.is-4
+            = machine.name
+          .subtitle
+            = machine.ip
+      .content.is-medium
+      .card-footer.text-right
+        = link_to edit_machine_path(machine), class: 'button is-primary is-outlined' do
+          span.icon: i.fa.fa-fw.fa-pencil
+          span Edit

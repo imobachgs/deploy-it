@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161023010824) do
+ActiveRecord::Schema.define(version: 20161023031558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,28 @@ ActiveRecord::Schema.define(version: 20161023010824) do
     t.integer  "role_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "deployments", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "status_id",     null: false
+    t.text     "configuration"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["project_id"], name: "index_deployments_on_project_id", using: :btree
+  end
+
+  create_table "machine_deployments", force: :cascade do |t|
+    t.integer  "deployment_id"
+    t.integer  "machine_id"
+    t.integer  "status_id",     null: false
+    t.text     "log"
+    t.text     "roles"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["deployment_id"], name: "index_machine_deployments_on_deployment_id", using: :btree
+    t.index ["machine_id"], name: "index_machine_deployments_on_machine_id", using: :btree
+    t.index ["status_id"], name: "index_machine_deployments_on_status_id", using: :btree
   end
 
   create_table "machines", force: :cascade do |t|
@@ -35,16 +57,19 @@ ActiveRecord::Schema.define(version: 20161023010824) do
     t.string   "name"
     t.string   "repo_url"
     t.text     "desc"
-    t.integer  "kind_id",                             null: false
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.integer  "kind_id",                                    null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "user_id"
-    t.string   "ruby_version", default: "2",          null: false
-    t.string   "adapter",      default: "postgresql", null: false
-    t.string   "database",     default: "rails",      null: false
-    t.string   "username",     default: "rails",      null: false
-    t.string   "password",     default: "rails",      null: false
-    t.string   "secret",       default: "",           null: false
+    t.string   "ruby_version",      default: "2",            null: false
+    t.string   "database_adapter",  default: "postgresql",   null: false
+    t.string   "database_name",     default: "rails",        null: false
+    t.string   "database_username", default: "rails",        null: false
+    t.string   "database_password", default: "rails",        null: false
+    t.string   "secret",            default: "",             null: false
+    t.string   "type",              default: "RailsProject", null: false
+    t.integer  "port",              default: 80
+    t.string   "db_admin_password", default: ""
   end
 
   create_table "users", force: :cascade do |t|
@@ -73,4 +98,7 @@ ActiveRecord::Schema.define(version: 20161023010824) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "deployments", "projects"
+  add_foreign_key "machine_deployments", "deployments"
+  add_foreign_key "machine_deployments", "machines"
 end

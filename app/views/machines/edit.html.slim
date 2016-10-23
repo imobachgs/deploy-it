@@ -1,2 +1,9 @@
-h1= "Modify machine data of: #{@machine.name}"
-= render partial: 'form'
+- content_for :title do
+  span.icon.is-medium: i.fa.fa-fw.fa-pencil
+  span= @machine.name
+- content_for :actions do
+  = link_to machines_path, class: 'button is-outlined' do
+    span.icon.is-small: i.fa.fa-fw.fa-times
+    span Cancel
+
+= render 'form'

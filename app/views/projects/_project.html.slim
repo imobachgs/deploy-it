@@ -1,0 +1,18 @@
+.column.is-one-third-desktop.is-half-tablet id="project-#{project.id}"
+  .card.is-fullwidth
+    .card-content
+      .media
+        .media-left
+          span.tag Rails
+        .media-content
+          .title.is-4
+            = project.name
+          .subtitle
+            span.icon.is-small: i.fa.fa-fw.fa-link
+            =< link_to truncate(project.repo_url), project.repo_url
+      .content.is-medium
+        = project.desc
+      .card-footer.text-right
+        = link_to edit_project_path(project), class: 'button is-primary is-outlined' do
+          span.icon: i.fa.fa-fw.fa-pencil
+          span Edit

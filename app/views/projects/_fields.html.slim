@@ -1,4 +1,7 @@
 = f.input :name
 = f.input :repo_url
-= f.input :kind_id, collection: @projects_kind, include_blank: false
-= f.input :desc, as: :text
+= f.input :kind_id do
+  span.select.is-medium
+    = f.input :kind_id, collection: @projects_kind,
+      include_blank: false, label: false, wrapper: false
+= f.input :desc, as: :text, input_html: { class: :textarea }

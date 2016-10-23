@@ -1,0 +1,21 @@
+nav.nav
+  .nav-left
+    - if user_signed_in?
+      = link_to projects_path, class: 'nav-item' do
+        i.fa.fa-fw.fa-th-lg
+        span Projects
+      = link_to machines_path, class: 'nav-item' do
+        i.fa.fa-fw.fa-th-lg
+        span Machines
+  .nav-center
+    = link_to 'Deploy-it!', root_path, class: 'nav-item title is-3 is-active'
+  .nav-right
+    - if user_signed_in?
+      = link_to profile_path, class: 'nav-item' do
+        span.icon.is-small: i.fa.fa-fw.fa-user
+        span Profile
+      = link_to destroy_user_session_path, method: :delete, class: 'nav-item' do
+        span.icon.is-small: i.fa.fa-fw.fa-power-off
+        span Sign out
+
+

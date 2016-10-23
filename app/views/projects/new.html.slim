@@ -1,3 +1,7 @@
-h2 Create new project
+- content_for :title, 'Create a new project'
+- content_for :actions do
+  = link_to projects_path, class: 'button is-outlined' do
+    span.icon.is-small: i.fa.fa-fw.fa-times
+    span Cancel
 
 = render 'form'

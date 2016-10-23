@@ -1,0 +1,14 @@
+section.header.hero
+  .hero-head
+    .container
+      = render 'top_navigation'
+  - if user_signed_in?
+    .hero-body
+      .container
+        .columns
+          .column.is-half
+            .title.is-3= yield :title
+            .subtitle.is-5= yield :subtitle
+          .column.is-half.has-text-right
+            = yield :actions
+    .hero-footer

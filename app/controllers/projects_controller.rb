@@ -23,15 +23,18 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
-    @roles = @project.kind.roles
+    @roles = {}
+    @project.kind.roles.map { |x| @roles[x.id] = x.name }
     @machines = current_user.machines
-    @roles.each { @project.assignments.build if @project.assignments.count < @roles.count}
+    @roles.each do |key, value|
+      @project.assignments.build(role_id: key) if @project.assignments.count < @roles.count
+    end
   end
 
   def update
     @project = Project.find(params[:id])
 
-    if @project.update_attributes(project_params)
+    if @project.update_attributes(project_type_params)
       redirect_to projects_url
     else
       render action: :edit
@@ -46,7 +49,23 @@ class ProjectsController < ApplicationController
       :desc,
       :repo_url,
       :kind_id,
+      :user_id
+    )
+  end
+
+  def project_type_params
+    params.require(@project.type.underscore.to_sym).permit(
+      :name,
+      :desc,
+      :repo_url,
+      :kind_id,
       :user_id,
+      :database_adapter,
+      :database_name,
+      :database_username,
+      :database_passwrod,
+      :ruby_version,
+      :port,
       assignments_attributes: [
         :id,
         :project_id,
