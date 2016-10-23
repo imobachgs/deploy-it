@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(version: 20161023171802) do
     t.integer  "deployment_id"
     t.integer  "status_id",     null: false
     t.text     "log",           null: false
-    t.text     "roles"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["deployment_id"], name: "index_machine_deployments_on_deployment_id", using: :btree
