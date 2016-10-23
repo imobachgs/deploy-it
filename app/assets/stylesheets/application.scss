@@ -37,3 +37,8 @@
 blockquote#ssh-public-key {
   word-wrap: break-word;
 }
+
+.is-fake-button {
+  cursor: not-allowed;
+  pointer-events: none;
+}
