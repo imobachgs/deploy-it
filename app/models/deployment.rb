@@ -18,6 +18,7 @@ class Deployment < ApplicationRecord
   serialize :configuration, Hash
 
   delegate :name, to: :project, prefix: true
+  delegate :name, to: :status, prefix: true
 
   scope :unfinished, -> do
     where.not(status_id: [DeploymentStatus::SUCCESS.id, DeploymentStatus::FAILED.id])

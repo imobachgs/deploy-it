@@ -13,6 +13,8 @@ class MachineDeployment < ApplicationRecord
 
   validates :deployment_id, :status_id, presence: true
 
+  delegate :name, to: :machine, prefix: true
+
   def append_to_log(text)
     self.class.where(id: id).update_all(["log = log || ?", text])
   end
