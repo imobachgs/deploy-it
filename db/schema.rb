@@ -61,12 +61,12 @@ ActiveRecord::Schema.define(version: 20161023101044) do
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.integer  "user_id"
-    t.string   "ruby_version",      default: "2"
-    t.string   "database_adapter",  default: "postgresql"
-    t.string   "database_name",     default: "rails"
-    t.string   "database_username", default: "rails"
-    t.string   "database_password", default: "rails"
-    t.string   "secret",            default: ""
+    t.string   "ruby_version",      default: "2",            null: false
+    t.string   "database_adapter",  default: "postgresql",   null: false
+    t.string   "database_name",     default: "rails",        null: false
+    t.string   "database_username", default: "rails",        null: false
+    t.string   "database_password", default: "rails",        null: false
+    t.string   "secret",            default: "",             null: false
     t.string   "type",              default: "RailsProject", null: false
     t.integer  "port",              default: 80
     t.string   "db_admin_password", default: ""
