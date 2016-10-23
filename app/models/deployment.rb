@@ -15,6 +15,8 @@ class Deployment < ApplicationRecord
   after_initialize :set_default_status
   after_create :build_queue
 
+  serialize :configuration, Hash
+
   # Enqueue a deploy job for each machine in the project
   #
   # Machine deployments can be enqueued only once.
