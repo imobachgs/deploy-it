@@ -10,10 +10,12 @@
 }
 
 .card-footer {
+  display: block;
   padding-top: 1rem;
 
   a.button {
-    margin-left: auto;
+    margin: 0 .5rem;
+
     span.icon {
       margin-right: 4px;
     }
