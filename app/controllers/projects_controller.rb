@@ -82,10 +82,10 @@ class ProjectsController < ApplicationController
 
   def load_project_roles
     @roles = {}
-    @project.kind.roles.map { |x| @roles[x.id] = x.name }
+    @project.available_roles.each { |x| @roles[x.id] = x.name }
   end
 
   def load_machines
-    current_user.machines
+    @machines = current_user.machines
   end
 end

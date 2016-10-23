@@ -14,4 +14,8 @@ class Project < ApplicationRecord
   def machine_with_role(role)
     assignments.where(role_id: role.id).first.try(:machine)
   end
+
+  def available_roles
+    self.class.roles
+  end
 end
