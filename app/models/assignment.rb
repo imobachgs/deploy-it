@@ -3,5 +3,4 @@ class Assignment < ApplicationRecord
 
   belongs_to :project
   belongs_to :machine
-  belongs_to :role
 end

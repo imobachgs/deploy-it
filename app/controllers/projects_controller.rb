@@ -21,9 +21,9 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
-    @roles = Role.all
-    @machines = Machine.all
-    @roles.each { @project.assignments.build if @project.assignments.count < Role.all.count}
+    @roles = @project.kind.roles
+    @machines = current_user.machines
+    @roles.each { @project.assignments.build if @project.assignments.count < @roles.count}
   end
 
   def update

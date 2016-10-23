@@ -1,6 +1,7 @@
-# Represents a rol of a {Machine} in a {Project}
+# Represents the {Role} of the `application`
 
-class Role < ActiveHash::Base
+class RailsRole < ActiveHash::Base
+
   self.data = [
     { id: 1, name: 'Application' },
     { id: 2, name: 'Database' }
