@@ -16,12 +16,26 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+$primary: #974478;
+$family-primary: "Roboto","Helvetica Neue","Helvetica","Arial",sans-serif;
+
 @import 'bulma';
 
 @import 'cards';
 @import 'icons';
 @import 'forms';
 @import 'helpers';
+
+.card,
+.box,
+section.header div.hero-head{
+  background: #F7F8F9;
+}
+
+section.header div.hero-body {
+  padding-bottom: 0;
+}
+
 
 .is-alert {
   @extend .is-warning;
@@ -32,7 +46,8 @@
 }
 
 .is-notice {
-  @extend .is-info;
+  @extend .is-notice;
+  background: #F7F8F9;
 }
 
 blockquote#ssh-public-key {

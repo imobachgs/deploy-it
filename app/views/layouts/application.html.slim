@@ -19,5 +19,10 @@ html
      .container
        .content.has-text-centered
          p
-           strong Deploy It!
-           |  by GDMK team
+           strong= 'Deploy It!,'
+           |  a tool developed by
+           strong=<> "GDMK"
+           | team for
+           =< link_to 'Ruby Rampage 2016', 'https://www.rubyrampage.com/'
+           | .
+

@@ -1,7 +1,6 @@
 - content_for :title do
-  span.icon.is-medium: i.fa.fa-fw.fa-user
   span= current_user.email
-- content_for :subtitle, 'Profile'
+- content_for :subtitle, 'This is your profile page'
 
 .content
   = render 'ssh_public_key'
