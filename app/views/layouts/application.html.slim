@@ -1,14 +1,27 @@
 doctype html
 html
   head
+    title Deploy-it!
     meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
-    title DeployIt
     = csrf_meta_tags
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic'
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    = render 'layouts/header'
-    - flash.each do |name, message|
-      = content_tag :div, class: name do
-        p= message
-    = yield
+    = render 'header'
+
+    section.body.section
+      .container
+        .column.is-half.is-offset-one-quarter
+          - flash.each do |name, message|
+            div class="notification is-#{name}"
+              = message
+      .container
+        = yield
+
+    footer.footer
+     .container
+       .content.has-text-centered
+         p
+           strong Deploy-it!
+           |  by GDMK team
