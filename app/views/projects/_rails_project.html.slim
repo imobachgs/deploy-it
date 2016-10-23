@@ -1,4 +1,7 @@
-= f.input :database_adapter
+= f.input :database_adapter do
+  span.select.is-medium
+    = f.input :database_adapter, collection: adapters,
+      include_blank: false, label: false, wrapper: false
 = f.input :database_name
 = f.input :database_username
 = f.input :database_password

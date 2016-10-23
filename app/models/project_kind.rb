@@ -9,4 +9,8 @@ class ProjectKind < ActiveHash::Base
   def roles
     Module.const_get("#{name}Role").all
   end
+
+  def adapters
+    Module.const_get("#{name}Adapter").all
+  end
 end

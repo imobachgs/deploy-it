@@ -8,6 +8,10 @@ class RailsProject < Project
     RailsRole.all
   end
 
+  def self.adapters
+    RailsAdapter.all
+  end
+
 
   private
 

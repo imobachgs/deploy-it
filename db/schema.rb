@@ -25,23 +25,20 @@ ActiveRecord::Schema.define(version: 20161023101044) do
 
   create_table "deployments", force: :cascade do |t|
     t.integer  "project_id"
-    t.integer  "status_id",     null: false
-    t.text     "configuration"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "status_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_deployments_on_project_id", using: :btree
+    t.index ["status_id"], name: "index_deployments_on_status_id", using: :btree
   end
 
   create_table "machine_deployments", force: :cascade do |t|
     t.integer  "deployment_id"
-    t.integer  "machine_id"
     t.integer  "status_id",     null: false
     t.text     "log"
-    t.text     "roles"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["deployment_id"], name: "index_machine_deployments_on_deployment_id", using: :btree
-    t.index ["machine_id"], name: "index_machine_deployments_on_machine_id", using: :btree
     t.index ["status_id"], name: "index_machine_deployments_on_status_id", using: :btree
   end
 
@@ -61,12 +58,12 @@ ActiveRecord::Schema.define(version: 20161023101044) do
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.integer  "user_id"
-    t.string   "ruby_version",      default: "2",            null: false
-    t.string   "database_adapter",  default: "postgresql",   null: false
-    t.string   "database_name",     default: "rails",        null: false
-    t.string   "database_username", default: "rails",        null: false
-    t.string   "database_password", default: "rails",        null: false
-    t.string   "secret",            default: "",             null: false
+    t.string   "ruby_version",      default: "2"
+    t.string   "database_adapter",  default: "postgresql"
+    t.string   "database_name",     default: "rails"
+    t.string   "database_username", default: "rails"
+    t.string   "database_password", default: "rails"
+    t.string   "secret",            default: ""
     t.string   "type",              default: "RailsProject", null: false
     t.integer  "port",              default: 80
     t.string   "db_admin_password", default: ""
@@ -100,5 +97,4 @@ ActiveRecord::Schema.define(version: 20161023101044) do
 
   add_foreign_key "deployments", "projects"
   add_foreign_key "machine_deployments", "deployments"
-  add_foreign_key "machine_deployments", "machines"
 end
