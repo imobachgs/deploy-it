@@ -14,7 +14,6 @@ class DeploymentStatus < ActiveHash::Base
     { id: 2, name: 'Running' },
     { id: 3, name: 'Success' },
     { id: 4, name: 'Failed' },
-    { id: 5, name: 'Unknown' }
   ]
 
   enum_accessor :name
