@@ -12,3 +12,8 @@ section.header.hero
           .column.is-half.has-text-right
             = yield :actions
     .hero-footer
+      .container
+        .column.is-half.is-offset-one-quarter
+          - flash.each do |name, message|
+            div class="notification is-#{name}"
+              = message

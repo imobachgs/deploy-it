@@ -1,7 +1,12 @@
 class ProjectsController < ApplicationController
   before_action :load_projects_kind, except: :index
+  before_action :check_machines, except: :index
 
   def index
+    unless current_user.has_machines?
+      flash.now[:alert] = 'Remember! You must have a machine for management projects.'
+    end
+
     @projects = current_user.projects
   end
 
@@ -87,5 +92,12 @@ class ProjectsController < ApplicationController
 
   def load_machines
     @machines = current_user.machines
+  end
+
+  def check_machines
+    unless current_user.has_machines?
+      flash[:error] = 'You need machines before create projects'
+      redirect_to root_path
+    end
   end
 end

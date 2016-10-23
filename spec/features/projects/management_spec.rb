@@ -5,64 +5,86 @@ RSpec.feature 'Manage projects', type: :feature do
   given!(:rails_kind) { create(:project_kind, name: 'Rails') }
   given!(:html_kind) { create(:project_kind, name: 'HTML') }
 
-  context 'Create' do
+  context 'When user has machines' do
     background do
       visit root_path
       sign_in(user)
-      visit new_project_path
+      create(:machine, user: user)
     end
 
-    scenario 'create and redirect to index on success' do
-      fill_in 'Name', with: 'A Rails project'
-      fill_in 'Repo url', with: 'Its repo url'
-      select 'Rails', from: 'Kind'
-      fill_in 'Desc', with: 'Its description'
+    context 'Create' do
+      background do
+        visit new_project_path
+      end
 
-      find('input[name=commit]').click
+      scenario 'create and redirect to index on success' do
+        fill_in 'Name', with: 'A Rails project'
+        fill_in 'Repo url', with: 'Its repo url'
+        select 'Rails', from: 'Kind'
+        fill_in 'Desc', with: 'Its description'
 
-      expect(page).to have_selector("form.edit_rails_project")
-    end
+        find('input[name=commit]').click
 
-    scenario 'redirect to form on error' do
-      fill_in 'Desc', with: 'Lorem ipsum diary'
+        expect(page).to have_selector("form.edit_rails_project")
+      end
 
-      find('input[name=commit]').click
+      scenario 'redirect to form on error' do
+        fill_in 'Desc', with: 'Lorem ipsum diary'
 
-      expect(page).to have_content('can\'t be blank')
-    end
-  end
+        find('input[name=commit]').click
 
-  context 'Update' do
-    given!(:project) { create(:project, name: 'Wrong name', user: user) }
-
-    background do
-      visit root_path
-      sign_in(user)
-      visit projects_path
-
-      within(:xpath, "//div[@id='project-#{project.id}']") do
-        click_link 'Edit'
+        expect(page).to have_content('can\'t be blank')
       end
     end
 
-    scenario 'update and redirect to index on sucess' do
-      expect(page).to have_current_path(edit_project_path(project))
+    context 'Update' do
+      given!(:project) { create(:project, name: 'Wrong name', user: user) }
 
-      fill_in 'Name', with: 'Right name'
+      background do
+        visit projects_path
 
-      find('input[name=commit]').click
+        within(:xpath, "//div[@id='project-#{project.id}']") do
+          click_link 'Edit'
+        end
+      end
 
-      expect(page).to have_current_path(project_path(project))
-      expect(page).to_not have_content('Wrong name')
-      expect(page).to have_content('Right name')
+      scenario 'update and redirect to index on sucess' do
+        expect(page).to have_current_path(edit_project_path(project))
+
+        fill_in 'Name', with: 'Right name'
+
+        find('input[name=commit]').click
+
+        expect(page).to have_current_path(project_path(project))
+        expect(page).to_not have_content('Wrong name')
+        expect(page).to have_content('Right name')
+      end
+
+      scenario 'redirect to form on error' do
+        fill_in 'Name', with: ''
+
+        find('input[name=commit]').click
+
+        expect(page).to have_content('can\'t be blank')
+      end
+    end
+  end
+
+  context 'When user has not machines' do
+    background do
+      visit root_path
+      sign_in(user)
     end
 
-    scenario 'redirect to form on error' do
-      fill_in 'Name', with: ''
+    context 'Create' do
+      background do
+        visit new_project_path
+      end
 
-      find('input[name=commit]').click
-
-      expect(page).to have_content('can\'t be blank')
+      scenario 'redirect to root_path with alert' do
+        expect(page).to have_current_path(root_path)
+        expect(page).to have_css('.is-error')
+      end
     end
   end
 end

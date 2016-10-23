@@ -19,6 +19,10 @@ class User < ApplicationRecord
     end
   end
 
+  def has_machines?
+    machines.present?
+  end
+
   private
 
   def ssh_key

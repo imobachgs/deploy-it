@@ -25,3 +25,11 @@
 .is-alert {
   @extend .is-warning;
 }
+
+.is-error {
+  @extend .is-danger;
+}
+
+.is-notice {
+  @extend .is-info;
+}
