@@ -33,3 +33,7 @@
 .is-notice {
   @extend .is-info;
 }
+
+blockquote#ssh-public-key {
+  word-wrap: break-word;
+}
