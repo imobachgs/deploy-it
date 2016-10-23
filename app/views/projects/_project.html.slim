@@ -21,7 +21,11 @@
               strong=< a.machine_name
               span.is-uppercase=< "(#{a.role.name})"
       .card-footer.has-text-right
-        - unless project.deploying?
+        - if project.deploying?
+          = link_to project_deployment_path(project, project.deployments.last), class: 'button is-link' do
+            span.icon: i.fa.fa-fw.fa-eye
+            span: strong Show deploy
+        - else
           = link_to project_deployments_path(project), method: :post, class: 'button is-warning' do
             span.icon: i.fa.fa-fw.fa-cubes
             span: strong Deploy it motherfucker!
