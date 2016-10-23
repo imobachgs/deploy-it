@@ -19,5 +19,8 @@ module DeployIt
       g.view_specs false
       g.controller_specs false
     end
+
+    # Eager load lib directory
+    config.eager_load_paths << Rails.root.join('lib')
   end
 end
