@@ -7,13 +7,13 @@
 #
 # Create a system user to be used in the deploy
 #
-group node['deploy-it']['system']['user'] do
+group node['deploy-it']['system']['group'] do
   action :create
 end
 
 user node['deploy-it']['system']['user'] do
   username node['deploy-it']['system']['user']
-  group node['deploy-it']['system']['user']
+  group node['deploy-it']['system']['group']
   system true
   action :create
 end

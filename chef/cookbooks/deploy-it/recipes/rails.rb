@@ -20,16 +20,16 @@ package 'database libraries' do
 end
 
 application node['deploy-it']['path'] do
-  owner node['deploy-it']['rails']['user']
-  group node['deploy-it']['rails']['group']
+  owner node['deploy-it']['system']['user']
+  group node['deploy-it']['system']['group']
 
   git node['deploy-it']['repo_url'] do
-    user 'rails'
-    group 'rails'
+    user node['deploy-it']['system']['user']
+    group node['deploy-it']['system']['group']
   end
 
   bundle_install do
-    user node['deploy-it']['rails']['user']
+    user node['deploy-it']['system']['user']
     deployment true
     without %w{development test}
   end
