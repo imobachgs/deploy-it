@@ -52,10 +52,12 @@ class MachinesController < ApplicationController
   end
 
   def upload_public_key
-    if params[:add_ssh_key].blank? && !@machine.upload_public_key(current_user.public_key_as_text, params[:server_root_password])
-      flash[:notice] = "The public key could not be uploaded!"
-      render :new
-      return false
+    if params[:add_ssh_key]
+      if !@machine.upload_public_key(current_user.public_key_as_text, params[:server_root_password])
+        flash[:notice] = "The public key could not be uploaded!"
+        render :new
+        return false
+      end
     end
     true
   end
