@@ -6,6 +6,7 @@ class Project < ApplicationRecord
   belongs_to :kind, class_name: 'ProjectKind'
   belongs_to :user
   has_many :assignments
+  has_many :deployments
   has_many :machines, through: :assignments
   has_many :deployments
   accepts_nested_attributes_for :assignments, allow_destroy: true
