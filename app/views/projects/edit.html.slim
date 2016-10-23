@@ -24,6 +24,7 @@
                    include_blank: false, label: false, wrapper: false
    .column.is-half
      .box
-        = render partial: "#{@project.type.underscore}", locals: { f: f }
+       = render partial: "#{@project.type.underscore}",
+         locals: { f: f, adapters: @project.kind.adapters }
 
      = f.button :submit, class: 'is-primary is-medium is-fullwidth is-outlined'

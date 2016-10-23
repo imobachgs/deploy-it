@@ -18,4 +18,8 @@ class Project < ApplicationRecord
   def available_roles
     self.class.roles
   end
+
+  def available_adpaters
+    self.class.adapters
+  end
 end
