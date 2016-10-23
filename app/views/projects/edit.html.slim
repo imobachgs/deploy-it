@@ -1,15 +1,29 @@
-h2
-  Edit a project
-  small= @project.name
+- content_for :title do
+  span.icon.is-medium: i.fa.fa-fw.fa-pencil
+  span= @project.name
+- content_for :actions do
+  = link_to projects_path, class: 'button is-outlined' do
+    span.icon.is-small: i.fa.fa-fw.fa-times
+    span Cancel
 
-  = simple_form_for @project, url: project_path(@project) do |f|
-    = render partial: 'fields', locals: { f: f }
+= simple_form_for @project, url: project_path(@project) do |f|
+  .columns
+   .column.is-half
+     .box
+       = render partial: 'fields', locals: { f: f }
+     .box
+       = f.simple_fields_for :assignments do |a|
+         .columns
+           .column.is-one-quarter.has-text-right.vcenter
+             span.tag= "Role: #{@roles[a.object.role_id]}"
+             = a.input :role_id, as: :hidden
+           .column
+             = a.input :machine_id do
+               span.select.is-medium.is-fullwidth
+                 = a.input :machine_id, collection: @machines,
+                   include_blank: false, label: false, wrapper: false
+   .column.is-half
+     .box
+        = render partial: "#{@project.type.underscore}", locals: { f: f }
 
-    = f.simple_fields_for :assignments do |a|
-      = a.input :machine_id, collection: @machines
-      = a.input :role_id, as: :hidden
-      = "Role: #{@roles[a.object.role_id]}"
-
-    = render partial: "#{@project.type.underscore}", locals: { f: f }
-
-    = f.button :submit
+     = f.button :submit, class: 'is-primary is-medium is-fullwidth is-outlined'

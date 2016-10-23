@@ -1,4 +1,6 @@
-= simple_form_for @project, url: projects_path, as: :project do |f|
-  = render partial: 'fields', locals: { f: f }
-  = f.button :submit
-
+.columns
+  .column.is-half.is-offset-one-quarter
+    .box
+      = simple_form_for @project, url: projects_path, as: :project do |f|
+        = render partial: 'fields', locals: { f: f }
+        = f.button :submit, class: 'is-medium is-primary is-outlined is-fullwidth'
