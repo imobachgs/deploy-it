@@ -28,6 +28,7 @@ module DeployIt
             },
             path: "/srv/app-#{project.id}",
             repo_url: project.repo_url,
+            port: project.port,
           },
         }
       end
