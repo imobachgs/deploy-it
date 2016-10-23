@@ -36,6 +36,9 @@ gem 'omniauth'
 gem 'omniauth-github'
 # SSH Keys
 gem 'sshkey'
+# Net::SSH
+gem 'net-ssh'
+gem 'net-scp'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

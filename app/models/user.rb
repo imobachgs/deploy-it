@@ -19,6 +19,15 @@ class User < ApplicationRecord
     end
   end
 
+  def private_key
+    #OpenSSL::PKey::RSA.new(ssh_private_key, user.email).to_pem
+    SSHKey.new(ssh_private_key, passphrase: email).private_key
+  end
+
+  def public_key_as_text
+    SSHKey.new(ssh_public_key, comment: email).ssh_public_key
+  end
+
   private
 
   def ssh_key
