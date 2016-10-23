@@ -17,7 +17,6 @@
 //= require add_ssh_key
 //= require_tree .
 
-
 $(document).on('turbolinks:load', function(){
   new Clipboard('[data-clipboard-target]');
 })
