@@ -23,9 +23,8 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
-    @roles = {}
-    @project.kind.roles.map { |x| @roles[x.id] = x.name }
-    @machines = current_user.machines
+    load_project_roles
+    load_machines
     @roles.each do |key, value|
       @project.assignments.build(role_id: key) if @project.assignments.count < @roles.count
     end
@@ -37,6 +36,8 @@ class ProjectsController < ApplicationController
     if @project.update_attributes(project_type_params)
       redirect_to projects_url
     else
+      load_project_roles
+      load_machines
       render action: :edit
     end
   end
@@ -77,5 +78,14 @@ class ProjectsController < ApplicationController
 
   def load_projects_kind
     @projects_kind = ProjectKind.all
+  end
+
+  def load_project_roles
+    @roles = {}
+    @project.kind.roles.map { |x| @roles[x.id] = x.name }
+  end
+
+  def load_machines
+    current_user.machines
   end
 end
