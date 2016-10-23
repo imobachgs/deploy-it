@@ -1,4 +1,4 @@
-= simple_form_for @project, url: projects_path do |f|
+= simple_form_for @project, url: projects_path, as: :project do |f|
   = render partial: 'fields', locals: { f: f }
   = f.button :submit
 
