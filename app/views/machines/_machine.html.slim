@@ -12,3 +12,7 @@
         = link_to edit_machine_path(machine), class: 'button is-primary is-outlined' do
           span.icon: i.fa.fa-fw.fa-pencil
           span Edit
+        - unless machine.assigned?
+          = link_to machine_path(machine), method: :delete, class: 'button is-danger is-outlined' do
+            span.icon>
+              i.fa.fa-fw.fa-trash
