@@ -10,10 +10,12 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = current_user.projects.new(project_params)
+    klass = "#{ProjectKind.find(params[:project][:kind_id]).try(:name)}Project".constantize
+    @project = klass.new(project_params)
+    @project.user_id = current_user.id
 
     if @project.save
-      redirect_to projects_url
+      redirect_to edit_project_path(@project)
     else
       render action: :new
     end

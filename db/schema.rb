@@ -35,16 +35,16 @@ ActiveRecord::Schema.define(version: 20161023010824) do
     t.string   "name"
     t.string   "repo_url"
     t.text     "desc"
-    t.integer  "kind_id",      null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "kind_id",                             null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "user_id"
-    t.string   "ruby_version", null: false
-    t.string   "adapter",      null: false
-    t.string   "database",     null: false
-    t.string   "username",     null: false
-    t.string   "password",     null: false
-    t.string   "secret",       null: false
+    t.string   "ruby_version", default: "2",          null: false
+    t.string   "adapter",      default: "postgresql", null: false
+    t.string   "database",     default: "rails",      null: false
+    t.string   "username",     default: "rails",      null: false
+    t.string   "password",     default: "rails",      null: false
+    t.string   "secret",       default: "",           null: false
   end
 
   create_table "users", force: :cascade do |t|
