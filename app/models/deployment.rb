@@ -52,14 +52,21 @@ class Deployment < ApplicationRecord
 
   def next!
     # FIXME: we should not trust in the id to order the deployments
-    next_deploy = machine_deployments.pending.order(:id)
-    if next_deploy.nil? # Finished!
-      update_attributes!(status: DeploymentStatus::FINISHED)
-    else
-      update_attributes!(status: DeploymentStatus::RUNNING)
-      # Perform job
-    end
-    next_deploy
+    machine_deployments.pending.order(:id).first
+  end
+
+  def update_status!
+    self.status =
+      if machine_deployments.all?(&:successful?)
+        DeploymentStatus::SUCCESS
+      elsif machine_deployments.any?(&:failed?)
+        DeploymentStatus::FAILED
+      elsif machine_deployments.any?(&:running?)
+        DeploymentStatus::RUNNING
+      else
+        DeploymentStatus::PENDING
+      end
+    save
   end
 
 protected

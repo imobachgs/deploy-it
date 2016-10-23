@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161023171802) do
+ActiveRecord::Schema.define(version: 20161023230440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,20 +25,25 @@ ActiveRecord::Schema.define(version: 20161023171802) do
 
   create_table "deployments", force: :cascade do |t|
     t.integer  "project_id"
-    t.integer  "status_id",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "status_id",     null: false
+    t.text     "configuration"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.index ["project_id"], name: "index_deployments_on_project_id", using: :btree
-    t.index ["status_id"], name: "index_deployments_on_status_id", using: :btree
   end
 
   create_table "machine_deployments", force: :cascade do |t|
     t.integer  "deployment_id"
-    t.integer  "status_id",     null: false
-    t.text     "log",           null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "machine_id"
+    t.integer  "status_id",                  null: false
+    t.text     "log",           default: "", null: false
+    t.text     "roles"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.datetime "started_at"
+    t.datetime "finished_at"
     t.index ["deployment_id"], name: "index_machine_deployments_on_deployment_id", using: :btree
+    t.index ["machine_id"], name: "index_machine_deployments_on_machine_id", using: :btree
     t.index ["status_id"], name: "index_machine_deployments_on_status_id", using: :btree
   end
 
@@ -97,4 +102,5 @@ ActiveRecord::Schema.define(version: 20161023171802) do
 
   add_foreign_key "deployments", "projects"
   add_foreign_key "machine_deployments", "deployments"
+  add_foreign_key "machine_deployments", "machines"
 end

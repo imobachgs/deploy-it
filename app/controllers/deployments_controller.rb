@@ -4,6 +4,7 @@ class DeploymentsController < ApplicationController
     @deployment = project.deployments.build
 
     if @deployment.save
+      DeploymentJob.perform_later(@deployment.id)
       render action: :show
     else
       flash[:error] = 'Ooops! Something went wrong!'

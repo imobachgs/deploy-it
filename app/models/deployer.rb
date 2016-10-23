@@ -40,9 +40,23 @@ class Deployer
 
   # Deploy the application
   def deploy
+    set_status(:running)
     prepare_server
     upload_configuration
-    run_cookbook
+    if run_cookbook
+      set_status(:successful)
+    else
+      set_status(:failed)
+    end
+  rescue
+    set_status(:failed)
+  end
+
+  # Set machine_deployment status
+  def set_status(status)
+    machine_deployment.send("set_as_#{status}!")
+    machine_deployment.deployment.update_status!
+    # We could send the notification here
   end
 
   # Prepare the server to perform the deploy
@@ -75,13 +89,15 @@ class Deployer
 
   # Apply the configuration
   def run_cookbook
+    result = nil
     runlist = roles.map { |r| "recipe[deploy-it::#{r}]" }.join(",")
     cmd = format(DEPLOY_CMD, path: REMOTE_WORKSPACE_PATH, runlist: runlist)
     run_ssh do |ssh|
       exec_and_log(ssh, "rm -rf #{File.join(REMOTE_WORKSPACE_PATH, "cookbooks")}")
       exec_and_log(ssh, "tar xf #{REMOTE_COOKBOOKS_PATH} -C #{REMOTE_WORKSPACE_PATH}")
-      exec_and_log(ssh, cmd)
+      result = exec_and_log(ssh, cmd)
     end
+    result
   end
 
   # Execute a command through SSH and log the output
