@@ -7,7 +7,7 @@
           label class="checkbox"
             input type="checkbox" id="add-ssh-key"
             | add the SSH-KEY for me
-        .control.add-ssh-key style='display:none;'
+        .control.add-ssh-key.hidden
           = label_tag :server_root_password, nil , class: 'label'
           = text_field_tag :server_root_password, nil, class: 'input is-medium'
 
