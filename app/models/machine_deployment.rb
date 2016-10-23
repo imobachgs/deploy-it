@@ -17,6 +17,34 @@ class MachineDeployment < ApplicationRecord
     self.class.where(id: id).update_all(["log = log || ?", text])
   end
 
+  def set_as_running!
+    update_attributes!(started_at: Time.zone.now, status_id: DeploymentStatus::RUNNING.id)
+  end
+
+  def set_as_successful!
+    update_attributes!(finished_at: Time.zone.now, status_id: DeploymentStatus::SUCCESS.id)
+  end
+
+  def set_as_failed!
+    update_attributes!(finished_at: Time.zone.now, status_id: DeploymentStatus::FAILED.id)
+  end
+
+  def pending?
+    status == DeploymentStatus::PENDING
+  end
+
+  def running?
+    status == DeploymentStatus::RUNNING
+  end
+
+  def successful?
+    status == DeploymentStatus::SUCCESS
+  end
+
+  def failed?
+    status == DeploymentStatus::FAILED
+  end
+
   protected
 
   def set_default_status
