@@ -19,6 +19,26 @@ class Deployment < ApplicationRecord
 
   delegate :name, to: :project, prefix: true
 
+  scope :unfinished, -> do
+    where.not(status_id: [DeploymentStatus::SUCCESS.id, DeploymentStatus::FAILED.id])
+  end
+
+  # Check if is finished
+  #
+  # @return [Boolean] true if has a failed or success status; false otherwise.
+  def finished?
+    [DeploymentStatus::FAILED, DeploymentStatus::SUCCESS].include?(status)
+  end
+
+  # Check if is still active
+  #
+  # @see #finished?
+  #
+  # @return [Boolean] true if is not finished; false otherwise.
+  def unfinished?
+    !finished?
+  end
+
   # Enqueue a deploy job for each machine in the project
   #
   # Machine deployments can be enqueued only once.
