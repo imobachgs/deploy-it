@@ -10,10 +10,12 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = current_user.projects.new(project_params)
+    klass = "#{ProjectKind.find(params[:project][:kind_id]).try(:name)}Project".constantize
+    @project = klass.new(project_params)
+    @project.user_id = current_user.id
 
     if @project.save
-      redirect_to projects_url
+      redirect_to edit_project_path(@project)
     else
       render action: :new
     end
@@ -21,6 +23,9 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
+    @roles = @project.kind.roles
+    @machines = current_user.machines
+    @roles.each { @project.assignments.build if @project.assignments.count < @roles.count}
   end
 
   def update
@@ -36,7 +41,19 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:name, :desc, :repo_url, :kind_id, :user_id)
+    params.require(:project).permit(
+      :name,
+      :desc,
+      :repo_url,
+      :kind_id,
+      :user_id,
+      assignments_attributes: [
+        :id,
+        :project_id,
+        :role_id,
+        :machine_id
+      ]
+    )
   end
 
   def load_projects_kind

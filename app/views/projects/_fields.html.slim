@@ -1,0 +1,4 @@
+= f.input :name
+= f.input :repo_url
+= f.input :kind_id, collection: @projects_kind, include_blank: false
+= f.input :desc, as: :text

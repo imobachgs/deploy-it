@@ -1,5 +1,12 @@
-h2 
+h2
   Edit a project
   small= @project.name
 
-= render 'form'
+  = simple_form_for @project, url: project_path(@project) do |f|
+    = render partial: 'fields', locals: { f: f }
+
+    = f.simple_fields_for :assignments do |a|
+      = a.input :machine_id, collection: @machines
+      = a.input :role_id, collection: @roles
+
+    = f.button :submit

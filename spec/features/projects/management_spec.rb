@@ -20,8 +20,7 @@ RSpec.feature 'Manage projects', type: :feature do
 
       click_button 'Create Project'
 
-      expect(page).to have_current_path(projects_path)
-      expect(page).to have_content('A Rails project')
+      expect(page).to have_selector("form.edit_project")
     end
 
     scenario 'redirect to form on error' do
@@ -53,7 +52,7 @@ RSpec.feature 'Manage projects', type: :feature do
 
       click_button 'Update Project'
 
-      expect(page).to have_current_path(projects_path)
+      expect(page).to have_current_path(project_path(project))
       expect(page).to_not have_content('Wrong name')
       expect(page).to have_content('Right name')
     end
