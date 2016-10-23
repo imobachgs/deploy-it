@@ -7,6 +7,9 @@ h2
 
     = f.simple_fields_for :assignments do |a|
       = a.input :machine_id, collection: @machines
-      = a.input :role_id, collection: @roles
+      = a.input :role_id, as: :hidden
+      = "Role: #{@roles[a.object.role_id]}"
+
+    = render partial: "#{@project.type.underscore}", locals: { f: f }
 
     = f.button :submit
