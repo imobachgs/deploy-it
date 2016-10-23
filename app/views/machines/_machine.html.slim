@@ -6,9 +6,18 @@
           .title.is-4
             = machine.name
           .subtitle
-            = machine.ip
-      .content.is-medium
-      .card-footer.text-right
+            span.icon.is-small: i.fa.fa-fw.fa-map-marker
+            strong=< machine.ip
+      - if machine.assigned?
+        .content
+          strong Used in
+          blockquote
+            - machine.assignments.each do |a|
+              .assignment
+                span.icon.is-small: i.fa.fa-fw.fa-clone
+                strong=< a.project_name
+                span.is-uppercase=< "(#{a.role.name})"
+      .card-footer.has-text-right
         = link_to edit_machine_path(machine), class: 'button is-primary is-outlined' do
           span.icon: i.fa.fa-fw.fa-pencil
           span Edit
