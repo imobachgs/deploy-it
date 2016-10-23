@@ -16,6 +16,7 @@ RSpec.feature 'Manage projects', type: :feature do
       background do
         visit new_project_path
       end
+
       scenario 'create and redirect to index on success' do
         fill_in 'Name', with: 'A Rails project'
         fill_in 'Repo url', with: 'http://example.com'
@@ -35,7 +36,8 @@ RSpec.feature 'Manage projects', type: :feature do
 
         find('input[name=commit]').click
 
-      expect(page).to have_content('this url is not valid')
+        expect(page).to have_content('this url is not valid')
+      end
     end
 
     context 'Update' do
