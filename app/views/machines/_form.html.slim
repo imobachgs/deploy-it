@@ -1,6 +1,7 @@
-= simple_form_for @machine do |f|
-  = f.input :name
-  = f.input :ip
-  = f.submit
-
-= link_to "Back", machines_path
+.columns
+  .column.is-half.is-offset-one-quarter
+    .box
+      = simple_form_for @machine do |f|
+        = f.input :name
+        = f.input :ip
+        = f.submit
