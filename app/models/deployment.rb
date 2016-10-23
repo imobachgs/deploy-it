@@ -17,6 +17,8 @@ class Deployment < ApplicationRecord
 
   serialize :configuration, Hash
 
+  delegate :name, to: :project, prefix: true
+
   # Enqueue a deploy job for each machine in the project
   #
   # Machine deployments can be enqueued only once.
