@@ -53,15 +53,18 @@ Vagrant.configure(2) do |config|
     end
   end
 
-  config.vm.define "server" do |machine|
-    machine.vm.network "forwarded_port", guest: 8000, host: 8000
-    machine.vm.box = "ubuntu/trusty64"
-    machine.vm.hostname = "server"
-    machine.vm.provision "shell", privileged: false,
+  (0..1).each do |index|
+    name = "server#{index}"
+    config.vm.define name do |machine|
+      port = 8000 + index
+      machine.vm.network "forwarded_port", guest: port, host: port
+      machine.vm.box = "ubuntu/trusty64"
+      machine.vm.hostname = name
+      machine.vm.provision "shell", privileged: false,
       path: "provisioning/setup-server.sh"
-    machine.vm.provider "virtualbox" do |vb|
-      vb.memory = "1024" 
+      machine.vm.provider "virtualbox" do |vb|
+        vb.memory = "1024"
+      end
     end
   end
-
 end

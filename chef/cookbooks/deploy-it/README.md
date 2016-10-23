@@ -25,6 +25,10 @@ Create a JSON file containig the application description (for example `deploy.js
       "adapter": "postgresql",
       "host": "localhost"
     },
+    "rails": {
+      "host": "localhost",
+      "secret": "a77ccbbef2b4a0ec"
+    }
     "path": "/srv/deploy-app",
     "repo_url": "https://github.com/its-me/my-cool-app"
   }

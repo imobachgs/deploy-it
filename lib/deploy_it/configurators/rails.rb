@@ -14,7 +14,7 @@ module DeployIt
               postgres: project.db_admin_password
             }
           },
-          deploy_it: {
+          "deploy-it" => {
             database: {
               database: project.database_name,
               username: project.database_username,
@@ -22,9 +22,13 @@ module DeployIt
               adapter:  project.database_adapter,
               host: project.machine_with_role(RailsRole::DATABASE).ip
             },
+            rails: {
+              host: project.machine_with_role(RailsRole::APPLICATION).ip,
+              secret: project.secret
+            },
             path: "/srv/app-#{project.id}",
             repo_url: project.repo_url,
-            secret: project.secret
+            port: project.port,
           },
         }
       end
