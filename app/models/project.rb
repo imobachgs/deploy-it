@@ -11,6 +11,7 @@ class Project < ApplicationRecord
   accepts_nested_attributes_for :assignments, allow_destroy: true
 
   validates :name, :repo_url, :kind_id, :user_id, presence: true
+  validate :check_repo_url, if: :repo_url?
 
   def machine_with_role(role)
     assignments.where(role_id: role.id).first.try(:machine)
@@ -22,5 +23,19 @@ class Project < ApplicationRecord
 
   def available_adpaters
     self.class.adapters
+  end
+
+  def check_repo_url
+    require 'net/http'
+
+    if repo_url =~ URI::regexp
+      url = URI.parse(repo_url)
+      req = Net::HTTP.new(url.host, url.port)
+      req.use_ssl = true if repo_url.split('/').first == "https:"
+      res = req.request_head(url.path)
+      errors.add(:repo_url, "this repository is not valid") if res.code != "200"
+    else
+      errors.add(:repo_url, "this url is not valid")
+    end
   end
 end
