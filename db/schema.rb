@@ -25,20 +25,23 @@ ActiveRecord::Schema.define(version: 20161023031558) do
 
   create_table "deployments", force: :cascade do |t|
     t.integer  "project_id"
-    t.integer  "status_id",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "status_id",     null: false
+    t.text     "configuration"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.index ["project_id"], name: "index_deployments_on_project_id", using: :btree
-    t.index ["status_id"], name: "index_deployments_on_status_id", using: :btree
   end
 
   create_table "machine_deployments", force: :cascade do |t|
     t.integer  "deployment_id"
+    t.integer  "machine_id"
     t.integer  "status_id",     null: false
     t.text     "log"
+    t.text     "roles"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["deployment_id"], name: "index_machine_deployments_on_deployment_id", using: :btree
+    t.index ["machine_id"], name: "index_machine_deployments_on_machine_id", using: :btree
     t.index ["status_id"], name: "index_machine_deployments_on_status_id", using: :btree
   end
 
@@ -97,4 +100,5 @@ ActiveRecord::Schema.define(version: 20161023031558) do
 
   add_foreign_key "deployments", "projects"
   add_foreign_key "machine_deployments", "deployments"
+  add_foreign_key "machine_deployments", "machines"
 end

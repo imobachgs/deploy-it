@@ -7,6 +7,8 @@
 # * Unknown: something went wrong and the status cannot be determined
 #            (e.g. the connection went down).
 class DeploymentStatus < ActiveHash::Base
+  include ActiveHash::Enum
+
   self.data = [
     { id: 1, name: 'Pending' },
     { id: 2, name: 'Running' },
@@ -14,4 +16,6 @@ class DeploymentStatus < ActiveHash::Base
     { id: 4, name: 'Failed' },
     { id: 5, name: 'Unknown' }
   ]
+
+  enum_accessor :name
 end
