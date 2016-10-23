@@ -14,6 +14,7 @@ class Deployment < ApplicationRecord
   before_create :set_configuration
   after_initialize :set_default_status
   after_create :build_queue
+  after_commit :broadcast_deployment
 
   serialize :configuration, Hash
 
@@ -80,4 +81,28 @@ protected
   def set_default_status
     self.status_id ||= DeploymentStatus::PENDING.id
   end
+
+  def broadcast_deployment
+    DeploymentBroadcastJob.perform_later(status.name, user: project.user)
+  end
 end
+
+# == Schema Information
+#
+# Table name: deployments
+#
+#  id            :integer          not null, primary key
+#  project_id    :integer
+#  status_id     :integer          not null
+#  configuration :text
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+# Indexes
+#
+#  index_deployments_on_project_id  (project_id)
+#
+# Foreign Keys
+#
+#  fk_rails_b9a3851b82  (project_id => projects.id)
+#

@@ -4,6 +4,7 @@ html
     title Deploy It!
     meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
     = csrf_meta_tags
+    = action_cable_meta_tag if user_signed_in?
     link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic'
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'

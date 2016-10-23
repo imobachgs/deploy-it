@@ -48,3 +48,26 @@ class Project < ApplicationRecord
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: projects
+#
+#  id                :integer          not null, primary key
+#  name              :string
+#  repo_url          :string
+#  desc              :text
+#  kind_id           :integer          not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  user_id           :integer
+#  ruby_version      :string           default("2")
+#  database_adapter  :string           default("postgresql")
+#  database_name     :string           default("rails")
+#  database_username :string           default("rails")
+#  database_password :string           default("rails")
+#  secret            :string           default("")
+#  type              :string           default("RailsProject"), not null
+#  port              :integer          default(80)
+#  db_admin_password :string           default("")
+#
