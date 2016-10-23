@@ -16,10 +16,9 @@ RSpec.feature 'Manage projects', type: :feature do
       background do
         visit new_project_path
       end
-
       scenario 'create and redirect to index on success' do
         fill_in 'Name', with: 'A Rails project'
-        fill_in 'Repo url', with: 'Its repo url'
+        fill_in 'Repo url', with: 'http://example.com'
         select 'Rails', from: 'Kind'
         fill_in 'Desc', with: 'Its description'
 
@@ -29,12 +28,14 @@ RSpec.feature 'Manage projects', type: :feature do
       end
 
       scenario 'redirect to form on error' do
-        fill_in 'Desc', with: 'Lorem ipsum diary'
+        fill_in 'Name', with: 'A Rails project'
+        fill_in 'Repo url', with: 'http://example.com1'
+        select 'Rails', from: 'Kind'
+        fill_in 'Desc', with: 'Its description'
 
         find('input[name=commit]').click
 
-        expect(page).to have_content('can\'t be blank')
-      end
+      expect(page).to have_content('this url is not valid')
     end
 
     context 'Update' do
