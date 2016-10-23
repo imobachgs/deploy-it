@@ -62,10 +62,12 @@ end
 #  deployment_id :integer
 #  machine_id    :integer
 #  status_id     :integer          not null
-#  log           :text
+#  log           :text             default(""), not null
 #  roles         :text
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  started_at    :datetime
+#  finished_at   :datetime
 #
 # Indexes
 #

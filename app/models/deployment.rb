@@ -14,6 +14,7 @@ class Deployment < ApplicationRecord
   before_create :set_configuration
   after_initialize :set_default_status
   after_create :build_queue
+  after_commit :broadcast_deployment
 
   serialize :configuration, Hash
 
@@ -79,6 +80,10 @@ protected
 
   def set_default_status
     self.status_id ||= DeploymentStatus::PENDING.id
+  end
+
+  def broadcast_deployment
+    DeploymentBroadcastJob.perform_later(status.name, user: project.user)
   end
 end
 

@@ -33,12 +33,12 @@ end
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  user_id           :integer
-#  ruby_version      :string           default("2"), not null
-#  database_adapter  :string           default("postgresql"), not null
-#  database_name     :string           default("rails"), not null
-#  database_username :string           default("rails"), not null
-#  database_password :string           default("rails"), not null
-#  secret            :string           default(""), not null
+#  ruby_version      :string           default("2")
+#  database_adapter  :string           default("postgresql")
+#  database_name     :string           default("rails")
+#  database_username :string           default("rails")
+#  database_password :string           default("rails")
+#  secret            :string           default("")
 #  type              :string           default("RailsProject"), not null
 #  port              :integer          default(80)
 #  db_admin_password :string           default("")
