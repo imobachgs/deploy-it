@@ -20,9 +20,11 @@
               span.icon.is-small: i.fa.fa-fw.fa-clone
               strong=< a.machine_name
               span.is-uppercase=< "(#{a.role.name})"
-
-
-      .card-footer.text-right
+      .card-footer.has-text-right
+        - unless project.deploying?
+          = link_to project_deployments_path(project), method: :post, class: 'button is-warning' do
+            span.icon: i.fa.fa-fw.fa-cubes
+            span: strong Deploy it motherfucker!
         = link_to edit_project_path(project), class: 'button is-primary is-outlined' do
           span.icon: i.fa.fa-fw.fa-pencil
           span Edit

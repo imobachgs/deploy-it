@@ -5,15 +5,22 @@ class Project < ApplicationRecord
 
   belongs_to :kind, class_name: 'ProjectKind'
   belongs_to :user
+
   has_many :assignments
-  has_many :machines, through: :assignments
   has_many :deployments
+  has_many :machines, through: :assignments
+  has_many :deployments, -> { order(created_at: :desc) }
+
   accepts_nested_attributes_for :assignments, allow_destroy: true
 
   validates :name, :repo_url, :kind_id, :user_id, presence: true
   validate :check_repo_url, if: :repo_url?
 
   delegate :name, to: :kind, prefix: true
+
+  def deploying?
+    deployments.last.try(:unfinished?)
+  end
 
   def machine_with_role(role)
     assignments.where(role_id: role.id).first.try(:machine)
