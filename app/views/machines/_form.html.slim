@@ -7,11 +7,12 @@
         .control
           label class="checkbox"
             input type="checkbox" id="add-ssh-key"
-            | add the SSH-KEY for me
+            | Upload the public key
+            p
+            small
+              | In order to set up this machine, you'll need to add the public key that you'll find in your profile to your root's authorized_keys file. You can do yourself or, if you prefer, we can handle it for you. In that case, we'll need your root password. In any case, we'll never store such a password.
         .control.add-ssh-key.hidden
           = label_tag :server_root_password, nil , class: 'label'
-          = text_field_tag :server_root_password, nil, class: 'input is-medium'
+          = password_field_tag :server_root_password, nil, class: 'input is-medium'
 
-          small
-            | We need the root password of your server to add the ssh-key in your and can deploy with success. We known how important is for you to keep in secret your root password, for this reason we NEVER cache or store it.
         = f.button :submit, class: 'is-medium is-primary is-outlined is-fullwidth'
