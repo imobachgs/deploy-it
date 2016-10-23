@@ -30,6 +30,8 @@ execute "create application user" do
   command "createuser #{node['deploy-it']['database']['username']}"
   ignore_failure true
   sensitive true
+  not_if "psql -c '\du' | cut -d\\| -f 1 | " \
+    "grep -qw #{node['deploy-it']['database']['username']}"
 end
 
 execute "update application user password" do
