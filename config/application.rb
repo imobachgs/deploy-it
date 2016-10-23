@@ -21,5 +21,8 @@ module DeployIt
     end
 
     config.active_job.queue_adapter = :sidekiq
+
+    # Eager load lib directory
+    config.eager_load_paths << Rails.root.join('lib')
   end
 end
