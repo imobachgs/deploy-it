@@ -13,6 +13,8 @@ class Project < ApplicationRecord
   validates :name, :repo_url, :kind_id, :user_id, presence: true
   validate :check_repo_url, if: :repo_url?
 
+  delegate :name, to: :kind, prefix: true
+
   def machine_with_role(role)
     assignments.where(role_id: role.id).first.try(:machine)
   end
