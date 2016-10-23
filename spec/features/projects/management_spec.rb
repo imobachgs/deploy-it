@@ -18,15 +18,15 @@ RSpec.feature 'Manage projects', type: :feature do
       select 'Rails', from: 'Kind'
       fill_in 'Desc', with: 'Its description'
 
-      click_button 'Create Project'
+      find('input[name=commit]').click
 
-      expect(page).to have_selector("form.edit_project")
+      expect(page).to have_selector("form.edit_rails_project")
     end
 
     scenario 'redirect to form on error' do
       fill_in 'Desc', with: 'Lorem ipsum diary'
 
-      click_button 'Create Project'
+      find('input[name=commit]').click
 
       expect(page).to have_content('can\'t be blank')
     end
@@ -50,7 +50,7 @@ RSpec.feature 'Manage projects', type: :feature do
 
       fill_in 'Name', with: 'Right name'
 
-      click_button 'Update Project'
+      find('input[name=commit]').click
 
       expect(page).to have_current_path(project_path(project))
       expect(page).to_not have_content('Wrong name')
@@ -60,7 +60,7 @@ RSpec.feature 'Manage projects', type: :feature do
     scenario 'redirect to form on error' do
       fill_in 'Name', with: ''
 
-      click_button 'Update Project'
+      find('input[name=commit]').click
 
       expect(page).to have_content('can\'t be blank')
     end
