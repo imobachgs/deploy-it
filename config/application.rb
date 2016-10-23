@@ -19,5 +19,7 @@ module DeployIt
       g.view_specs false
       g.controller_specs false
     end
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end
