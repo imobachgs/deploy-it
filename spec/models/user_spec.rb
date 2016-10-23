@@ -7,6 +7,21 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many :projects }
   it { is_expected.to have_many :machines }
 
+  describe '#has_machines?' do
+    it 'returns true when user has machines' do
+      user = create(:user)
+      create(:machine, user: user)
+
+      expect(user.has_machines?).to be_truly
+    end
+
+    it 'returns false when user has machines' do
+      user = create(:user)
+
+      expect(user.has_machines?).to be_falsey
+    end
+  end
+
   describe 'before validation' do
     it 'does not assign any key when email is blank' do
       user = build(:user, email: '')
