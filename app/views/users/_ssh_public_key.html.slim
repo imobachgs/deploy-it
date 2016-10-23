@@ -1,0 +1,19 @@
+article.message
+  .message-header
+    | SSH Public Key
+  .message-body
+    p.content.is-medium
+      | This is your
+      strong< Deploy-it!
+      em<> SSH Public Key.
+      | You must
+      span<>
+        = link_to '#ssh-public-key', data: { clipboard_target: '#ssh-public-key' } do
+          span.icon.is-small: i.fa.fa-fw.fa-copy
+          span copy it
+      | to your machines into
+      strong=<> '/root/.ssh/authorized_keys'
+      | path.
+    p
+      blockquote id="ssh-public-key"
+        ==  current_user.public_key_as_text
