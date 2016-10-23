@@ -4,10 +4,4 @@
 - content_for :subtitle, 'Profile'
 
 .content
-  p
-    strong  SSH Public Key
-    = link_to '#ssh-public-key', class: 'pull-right', data: { clipboard_target: '#ssh-public-key' } do
-      span.icon.is-small: i.fa.fa-fw.fa-copy
-      span Copy to clipboard
-  blockquote id="ssh-public-key"
-    ==  current_user.ssh_public_key
+  = render 'ssh_public_key'
